@@ -1,0 +1,326 @@
+<!doctype html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout">
+
+<head>
+    <!-- Required meta tags -->
+    <meta  http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Formulario</title>
+
+    <style>
+        h1 {
+            text-align: center;
+            padding: 10px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 60px;
+        }
+
+        .container {
+            background-color: rgb(85, 79, 79);
+            padding: 6%;
+            border: 1px solid black;
+
+        }
+
+        .focus {
+            border-color: red;
+        }
+
+        button {
+            margin-left: 60px;
+        }
+
+        .msg_erro {
+            text-align: center;
+        }
+
+        span {
+            color: red;
+            text-align: center;
+        }
+
+        label {
+            color: white;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function validarForm(form) {
+
+            //contar quantas validacoes corretas
+            var validar = 0;
+
+            //validação do campo nome
+            var spanNome = document.querySelector(".msg_nome");
+            var spanNomeInvalido = document.querySelector(".msg_nome_invalido");
+
+            if (form.nome.value == "") {
+
+                spanNome.style.display = "inline-block";
+                spanNomeInvalido.style.display = "none";
+                form.nome.focus();
+
+                return false;
+            } else {
+                spanNome.style.display = "none";
+                validar++;
+                if (form.nome.value.length < 3) {
+                    console.log("chegou aki");
+                    spanNomeInvalido.style.display = "inline-block";
+                } else {
+                    validar++;
+                    form.nome.focus();
+                    spanNomeInvalido.style.display = "none";
+                }
+
+            }
+
+            //validação do campo email
+            var spanEmail = document.querySelector(".msg_email")
+            var spanEmailInvalido = document.querySelector(".msg_email_invalido")
+
+            if (email.value == "") {
+                spanEmail.style.display = "inline-block";
+                spanEmailInvalido.style.display = "none";
+            }
+            else {
+                spanEmail.style.display = "none";
+                validar++;
+                if (email.value.indexOf('@') == -1 || email.value.indexOf('.') == -1) {
+                    spanEmailInvalido.style.display = "inline-block";
+                }
+                else {
+                    spanEmailInvalido.style.display = "none";
+                    validar++;
+                }
+            }
+
+            //validação do campo senha e confirmacção de senha
+            var spanSenha = document.querySelector(".msg_senha");
+            var spanConfSenha = document.querySelector(".msg_confSenha");
+            var spanSenhaInvalida = document.querySelector(".msg_senhaInvalida");
+            var spanSenhaDifirentes = documetn.querySelector(".msg_senhaDfirente");
+
+            if (form.senha.value == "") {
+                spanSenha.style.display = "inline-block";
+                form.senha.focus();
+            }
+            else {
+                spanSenha.style.display = "none";
+                validar++;
+                if (form.ConfirmaSenha.value == "") {
+                    spanConfSenha.style.display = "inline-block";
+                    form.ConfirmaSenha.focus();
+
+                } else {
+                    spanConfSenha.style.display = "none";
+                    validar++;
+                    if (form.senha.value != form.ConfirmaSenha.value) {
+                       spanSenhaDifirentes.style.display = "inline-block";
+                        form.senha.focus();
+                        form.ConfirmaSenha.focus();
+
+                    } else {
+                        spanSenhaInvalida.style.display = "none";
+                        validar++;
+                    }
+                }
+            }
+
+            //validação do campo Preferencias com tipo de botão checkbox
+
+            var checkbox = document.getElementsByName("preferencia");
+            var spanCheckbox = document.querySelector(".msg_areas");
+            var checkboxCheck = false;
+            for (var i = 0; i < checkbox.length; i++) {
+                if (checkbox[i].checked == true) {
+                    checkboxCheck = true;
+                }
+            }
+            if (checkboxCheck) {
+                spanCheckbox.style.display = "none";
+                validar++;
+            }
+            else {
+                spanCheckbox.style.display = "inline-block";
+            }
+            //validação do campo Modulo com tipo de botão radio
+            var gridRadio = document.getElementsByName("gridRadios");
+            var spanGridRadio = document.querySelector(".msg_modulo");
+            var checkGridRadio = false;
+            for (var i = 0; i < gridRadio.length; i++) {
+                if (gridRadio[i].checked == true) {
+                    checkGridRadio = true;
+                }
+            } if (checkGridRadio) {
+                spanGridRadio.style.display = "none";
+                validar++;
+            } else {
+                spanGridRadio.style.display = "inline-block";
+            }
+
+            //vereicar se todos os campus estão válidos
+            if (validar == 6) {
+                alert("Seu Cadastro foi Concluido com Sucesso");
+            }
+        }
+
+        function limpar() {
+            //se os campus estiverem preenchidos a função retorna com o campo vazio
+            if (document.getElementById("nome").value != "" || document.getElementById("email").value != "" ||
+                document.getElementById("senha").value != "" || document.getElementById("ConfirmaSenha").value != "" ||
+                document.getElementById("gridRadios1").value != true || document.getElementById("gridRadios2").value != true ||
+                document.getElementById("gridRadios3").value != true || document.getElementById("gridCheck1").value != true ||
+                document.getElementById("gridCheck2").value != true || document.getElementById("gridCheck3").value != true) {
+
+                document.getElementById('nome').value = "";
+                document.getElementById('email').value = "";
+                document.getElementById('senha').value = "";
+                document.getElementById('ConfirmaSenha').value = "";
+                document.getElementById('gridRadios1').checked = false;
+                document.getElementById("gridRadios2").checked = false;
+                document.getElementById("gridRadios3").checked = false;
+                document.getElementById("gridCheck1").checked = false;
+                document.getElementById("gridCheck2").checked = false;
+                document.getElementById("gridCheck3").checked = false;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Faça o seu cadastro</h1>
+
+    <div class="container">
+        <form name="form" method="POST" action="/cadastro">
+            <div class="form-group row">
+                <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="nome" name="nome" th:value="${aluno.nome}" placeholder="Ex.: Jose maria"
+                        style=" border: 1px solid black;">
+                </div>
+                <span class="msg_erro msg_nome" style="display: none" name="span"> O Campo nome é Obrigatorio</span>
+                <span class="msg_erro msg_nome_invalido" style="display: none" name="span"> este Nome é invalido</span>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">E-mail</label>
+                <div class="col-sm-7">
+                    <input type="email" class="form-control" id="email" name="email"
+                        placeholder="Ex:. josemaria@gmail.com" th:value="${aluno.email}" style=" border: 1px solid black;">
+                </div>
+            </div>
+            <span class="msg_erro msg_email" style="display: none" name="span"> O Campo E-mail é Obrigatorio</span>
+            <span class="msg_erro msg_email_invalido" style="display: none" name="span"> este E-mail é invalido</span>
+
+            <div class="form-group row">
+                <label for="senha" class="col-sm-2 col-form-label">Senha</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" id="senha" name="senha" th:value="${aluno.senha}" placeholder="Ex.: *******"
+                        width="40" maxlength="30" style=" border: 1px solid black;">
+                </div>
+            </div>
+            <span class="msg_erro msg_senha" style="display: none"> O Campo Senha é Obrigatorio</span>
+            <span class="msg_erro msg_senhaInvalida" style="display: none"> esta Senha é invalido</span>
+
+            <div class="form-group row">
+                <label for="ConfirmaSenha" class="col-sm-2 col-form-label">Confirmar Senha</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" id="ConfirmaSenha" name="ConfirmaSenha"
+                    placeholder="Confirme a Senha" style=" border: 1px solid black;" th:value="${aluno.confSenha}">
+                </div>
+            </div>
+            <span class="msg_erro msg_confSenha" style="display: none" name="span"> O Campo Confirmar Senha é
+                Obrigatorio</span>
+            <span class="msg_erro msg_confSenha_invalido" style="display: none" name="span"> esta Confirmação da Senha é
+                invalido</span>
+            <span class="msg_erro msg_senhaDfirente" style="display: none" name="span"> As Senhas são diferentes</span>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0" style="color: white;">Modulo</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                value="option1" th:selected="${aluno.modulo == Primeiro}">
+                            <label class="form-check-label" for="gridRadios1">
+                                Primeiro
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                value="option2" th:selected="${aluno.modulo == Segundo}">
+                            <label class="form-check-label" for="gridRadios2">
+                                Segundo
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+                                value="option3" th:selected="${aluno.modulo == Terceiro}">
+                            <label class="form-check-label" for="gridRadios3">
+                                Terceiro
+                            </label>
+                        </div>
+                        <span class="msg_erro msg_modulo" style="display: none" name="span"> O Campo Preferencias é
+                            Obrigatorio, escolha pelo menos uma opção</span>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <div class="col-sm-2" style="color: white;">Preferencias</div>
+                <div class="col-sm-10" name="Preferencias">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck1"
+                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'P.O.O') : false}">
+                        <label class="form-check-label" for="gridCheck1">
+                            P.O.O
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck2"
+                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'Pweb2') : false">
+                        <label class="form-check-label" for="gridCheck1">
+                            Pweb2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck3"
+                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'programção móvel') : false">
+                        <label class="form-check-label" for="gridCheck1">
+                            programção móvel
+                        </label>
+                    </div>
+                    <span class="msg_erro msg_areas" style="display: none" name="span"> O Campo Preferencias é
+                        Obrigatorio, escolha pelo menos uma opção</span>
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-dark" style="margin-left: 350px; background-color:black"
+                value="validar" onclick="validarForm(form)">VALIDAR</button>
+            <button type="button" class="btn btn-dark" value="limpar" style="background-color:black"
+                onclick="limpar()">LIMPAR</button>
+
+        </form>
+    </div>
+
+    <p th:text="${mensagem}"></p>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
