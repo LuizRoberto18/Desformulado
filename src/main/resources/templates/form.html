@@ -27,7 +27,6 @@
             border: 1px solid black;
 
         }
-
         .focus {
             border-color: red;
         }
@@ -58,6 +57,7 @@
             var validar = 0;
 
             //validação do campo nome
+            
             var spanNome = document.querySelector(".msg_nome");
             var spanNomeInvalido = document.querySelector(".msg_nome_invalido");
 
@@ -106,7 +106,7 @@
             var spanSenha = document.querySelector(".msg_senha");
             var spanConfSenha = document.querySelector(".msg_confSenha");
             var spanSenhaInvalida = document.querySelector(".msg_senhaInvalida");
-            var spanSenhaDifirentes = documetn.querySelector(".msg_senhaDfirente");
+            var spanSenhaDifirentes = document.querySelector(".msg_senhaDiferente");
 
             if (form.senha.value == "") {
                 spanSenha.style.display = "inline-block";
@@ -115,17 +115,17 @@
             else {
                 spanSenha.style.display = "none";
                 validar++;
-                if (form.ConfirmaSenha.value == "") {
+                if (form.ConfSenha.value == "") {
                     spanConfSenha.style.display = "inline-block";
-                    form.ConfirmaSenha.focus();
+                    form.ConfSenha.focus();
 
                 } else {
                     spanConfSenha.style.display = "none";
                     validar++;
-                    if (form.senha.value != form.ConfirmaSenha.value) {
+                    if (form.senha.value != form.ConfSenha.value) {
                        spanSenhaDifirentes.style.display = "inline-block";
                         form.senha.focus();
-                        form.ConfirmaSenha.focus();
+                        form.ConfSenha.focus();
 
                     } else {
                         spanSenhaInvalida.style.display = "none";
@@ -172,26 +172,7 @@
             }
         }
 
-        function limpar() {
-            //se os campus estiverem preenchidos a função retorna com o campo vazio
-            if (document.getElementById("nome").value != "" || document.getElementById("email").value != "" ||
-                document.getElementById("senha").value != "" || document.getElementById("ConfirmaSenha").value != "" ||
-                document.getElementById("gridRadios1").value != true || document.getElementById("gridRadios2").value != true ||
-                document.getElementById("gridRadios3").value != true || document.getElementById("gridCheck1").value != true ||
-                document.getElementById("gridCheck2").value != true || document.getElementById("gridCheck3").value != true) {
-
-                document.getElementById('nome').value = "";
-                document.getElementById('email').value = "";
-                document.getElementById('senha').value = "";
-                document.getElementById('ConfirmaSenha').value = "";
-                document.getElementById('gridRadios1').checked = false;
-                document.getElementById("gridRadios2").checked = false;
-                document.getElementById("gridRadios3").checked = false;
-                document.getElementById("gridCheck1").checked = false;
-                document.getElementById("gridCheck2").checked = false;
-                document.getElementById("gridCheck3").checked = false;
-            }
-        }
+       
     </script>
 
 </head>
@@ -201,6 +182,7 @@
 
     <div class="container">
         <form name="form" method="POST" action="/cadastro">
+        <input type="number" name="id" id="id" th:value="${aluno.id}" style="display: none">
             <div class="form-group row">
                 <label for="nome" class="col-sm-2 col-form-label">Nome</label>
                 <div class="col-sm-9">
@@ -231,9 +213,9 @@
             <span class="msg_erro msg_senhaInvalida" style="display: none"> esta Senha é invalido</span>
 
             <div class="form-group row">
-                <label for="ConfirmaSenha" class="col-sm-2 col-form-label">Confirmar Senha</label>
+                <label for="ConfSenha" class="col-sm-2 col-form-label">Confirmar Senha</label>
                 <div class="col-sm-5">
-                    <input type="password" class="form-control" id="ConfirmaSenha" name="ConfirmaSenha"
+                    <input type="password" class="form-control" id="confSenha" name="confSenha"
                     placeholder="Confirme a Senha" style=" border: 1px solid black;" th:value="${aluno.confSenha}">
                 </div>
             </div>
@@ -241,7 +223,7 @@
                 Obrigatorio</span>
             <span class="msg_erro msg_confSenha_invalido" style="display: none" name="span"> esta Confirmação da Senha é
                 invalido</span>
-            <span class="msg_erro msg_senhaDfirente" style="display: none" name="span"> As Senhas são diferentes</span>
+            <span class="msg_erro msg_senhaDiferente" style="display: none" name="span"> As Senhas são diferentes</span>
             <fieldset class="form-group">
                 <div class="row">
                     <legend class="col-form-label col-sm-2 pt-0" style="color: white;">Modulo</legend>
@@ -277,21 +259,21 @@
                 <div class="col-sm-10" name="Preferencias">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck1"
-                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'P.O.O') : false}">
+                            th:selected="${aluno.preferencias != null ? #arrays.contains(aluno.preferencias, 'P.O.O') : false}">
                         <label class="form-check-label" for="gridCheck1">
                             P.O.O
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck2"
-                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'Pweb2') : false">
+                            th:selected="${aluno.preferencias != null ? #arrays.contains(aluno.preferencias, 'Pweb2') : false}">
                         <label class="form-check-label" for="gridCheck1">
                             Pweb2
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="preferencia" id="gridCheck3"
-                            th:selected="${aluno.preferencias != ? #arrays.contains(aluno.preferencias, 'programção móvel') : false">
+                            th:selected="${aluno.preferencias != null ? #arrays.contains(aluno.preferencias, 'programção móvel') : false}">
                         <label class="form-check-label" for="gridCheck1">
                             programção móvel
                         </label>
@@ -302,9 +284,8 @@
 
             </div>
             <button type="button" class="btn btn-dark" style="margin-left: 350px; background-color:black"
-                value="validar" onclick="validarForm(form)">VALIDAR</button>
-            <button type="button" class="btn btn-dark" value="limpar" style="background-color:black"
-                onclick="limpar()">LIMPAR</button>
+                value="validar" onclick="validarForm(form)" id="validar">VALIDAR</button>
+            <button type="reset" class="btn btn-dark" value="limpar" style="background-color:black" id="limpar">LIMPAR</button>
 
         </form>
     </div>
