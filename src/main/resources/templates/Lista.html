@@ -35,6 +35,8 @@
                  <th scope="col">NOME</th>
                 <th scope="col">E-MAIL</th>
                 <th scope="col">MODULO</th>
+                <th scope="col">PREFERENCIAS</th>
+                <th scope="col"></th>
                
             </tr>
         </thead>
@@ -45,7 +47,9 @@
                 <td th:text="${aluno.nome}"></td>
                 <td th:text="${aluno.email}"></td>
                 <td th:text="${aluno.modulo}"></td>
-               
+                <td th:text=${aluno.preferencias}></td>
+                <td><a th:href="@{'/atualizar/' + ${aluno.id}}">Atualizar</a></td>
+                <td><a th:href="@{'/excluir/' + ${aluno.id}}"> excluir</a></td>
             </tr>
 
         </tbody>

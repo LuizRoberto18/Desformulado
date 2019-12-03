@@ -2,6 +2,7 @@ package br.edu.ifal.desformulado;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -43,4 +44,16 @@ public class Controlador{
 		return retorno;
 	}
     
+    @RequestMapping("/excluir/{id}")
+    public ModelAndView excluirAluno(@PathVariable(name = "id") Long id){
+        alunoRepo.deleteById(id);
+        return new ModelAndView("redirect:/lista");
+    }   
+
+    @RequestMapping("/atualizar/{id}")
+    public ModelAndView atualizar(@PathVariable(name = "id") Long id) {
+        ModelAndView retorna = new ModelAndView("form.html");
+        retorna.addObject("aluno", alunoRepo.findById(id).get());
+        return retorna;
+    }
 }
