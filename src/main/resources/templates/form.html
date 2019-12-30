@@ -10,22 +10,52 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link href="http://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> 
     <title>Formulario</title>
 
     <style>
-        h1 {
-            text-align: center;
-            padding: 10px;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 60px;
-        }
-
+       
         .container {
             background-color: rgb(85, 79, 79);
-            padding: 6%;
+            padding: 5%;
             border: 1px solid black;
-
+            margin-top: 3em;
+            margin-bottom: 5em;
+            width: 9500px;
+            height: 800px;
+        }
+         h1 {
+            
+            background-color: red;
+            left: -159px;
+            text-align: center;
+            padding: 3px 0;
+            position: relative;
+            font-family: 'Press Start 2P';
+            font-size: 60px;
+            width: 1298px;
+            margin-top: 0px;
+            margin-bottom: 1.5em;
+            color: wheat;
+            content: '';
+        }
+        h1::before{
+            border-color: transparent rgb(175, 7, 7) rgb(151, 7, 7) transparent;
+            border-style: solid;
+            border-width: 40px;
+            content: '';
+            left: 0px;
+            position: absolute;
+            top: -80px;
+        }
+        h1::after{
+            border-color: transparent transparent rgb(151, 9, 9) rgb(175, 7, 7) ;
+            border-style: solid;
+            border-width: 40px;
+            content: '';
+            right: -1px;
+            position: absolute;
+            top: -80px;
         }
         .focus {
             border-color: red;
@@ -46,6 +76,17 @@
 
         label {
             color: white;
+        }
+
+        .icon-next::after{
+            content: '\2714';
+            font-family: 'IconicFill';
+            margin-left: 10px;
+        }
+        .icon-invalid::after{
+            content: '\2718';
+            font-family: 'IconicFill';
+            margin-left: 10px;
         }
     </style>
 
@@ -180,9 +221,10 @@
 </head>
 
 <body>
-    <h1>Faça o seu cadastro</h1>
-
+    
     <div class="container">
+            <h1>Faça o seu cadastro</h1>
+
         <form name="form" method="POST" action="/cadastro">
         <input type="number" name="id" id="id" th:value="${aluno.id}" style="display: none">
             <div class="form-group row">
@@ -286,9 +328,9 @@
                 </div>
 
             </div>
-            <button type="submit" class="btn btn-dark" style="margin-left: 350px; background-color:black"
+            <button type="submit" class="btn btn-dark icon-next" style="margin-left: 350px; background-color: green"
                 value="validar" onclick="validarForm(form)" id="validar">VALIDAR</button>
-            <button type="reset" class="btn btn-dark" value="limpar" style="background-color:black" id="limpar">LIMPAR</button>
+            <button type="reset" class="btn btn-dark icon-invalid" value="limpar" style="background-color:rgb(151, 7, 7)" id="limpar">LIMPAR</button>
 
         </form>
     </div>
