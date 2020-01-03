@@ -1,68 +1,74 @@
 <!doctype html>
-<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="layout">
 
 <head>
     <!-- Required meta tags -->
-    <meta  http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="http://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> 
+    <link href="http://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <title>Formulario</title>
 
     <style>
-       
         .container {
-            background-color: rgb(85, 79, 79);
             padding: 5%;
             border: 1px solid black;
             margin-top: 3em;
             margin-bottom: 5em;
             width: 9500px;
             height: 800px;
+            background-color: rgb(124, 122, 122);
+            box-shadow: 4px 7px 4px rgb(112, 112, 112);
         }
-         h1 {
-            
-            background-color: red;
-            left: -159px;
+
+        h1 {
+
+            background-color: rgb(31, 31, 31);
+            left: -138px;
             text-align: center;
-            padding: 3px 0;
+            padding: 10px 0;
             position: relative;
-            font-family: 'Press Start 2P';
             font-size: 60px;
-            width: 1298px;
+            width: 1256px;
             margin-top: 0px;
             margin-bottom: 1.5em;
-            color: wheat;
+            color: white;
             content: '';
+            text-shadow: 2px 7px 2px rgb(0, 0, 0, 1);
+            box-shadow: 4px 7px 4px #000;
         }
-        h1::before{
-            border-color: transparent rgb(175, 7, 7) rgb(151, 7, 7) transparent;
+
+        h1::before {
+            border-color: transparent rgb(39, 39, 39) rgb(0, 0, 0) transparent;
             border-style: solid;
-            border-width: 40px;
+            border-width: 30px;
             content: '';
             left: 0px;
             position: absolute;
-            top: -80px;
+            top: -60px;
         }
-        h1::after{
-            border-color: transparent transparent rgb(151, 9, 9) rgb(175, 7, 7) ;
+
+        h1::after {
+            border-color: transparent transparent rgb(0, 0, 0) rgb(39, 39, 39);
             border-style: solid;
-            border-width: 40px;
+            border-width: 30px;
             content: '';
             right: -1px;
             position: absolute;
-            top: -80px;
+            top: -60px;
         }
+
         .focus {
             border-color: red;
         }
 
         button {
             margin-left: 60px;
+            text-shadow: 2px 4px 2px rgb(0, 0, 0, 1);
         }
 
         .msg_erro {
@@ -76,17 +82,27 @@
 
         label {
             color: white;
+            text-shadow: 2px 4px 2px rgb(0, 0, 0, 1);
         }
 
-        .icon-next::after{
+        .icon-next::after {
             content: '\2714';
             font-family: 'IconicFill';
             margin-left: 10px;
         }
-        .icon-invalid::after{
+
+        .icon-invalid::after {
             content: '\2718';
             font-family: 'IconicFill';
             margin-left: 10px;
+        }
+
+        input {
+            box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.25) inset;
+        }
+
+        body {
+            background-color: rgb(199, 194, 194);
         }
     </style>
 
@@ -98,7 +114,7 @@
             var validar = 0;
 
             //validação do campo nome
-            
+
             var spanNome = document.querySelector(".msg_nome");
             var spanNomeInvalido = document.querySelector(".msg_nome_invalido");
 
@@ -166,7 +182,7 @@
                     spanConfSenha.style.display = "none";
                     validar++;
                     if (senha.value != confSenha.value) {
-                       spanSenhaDifirentes.style.display = "inline-block";
+                        spanSenhaDifirentes.style.display = "inline-block";
                         senha.focus();
                         confSenha.focus();
 
@@ -215,23 +231,23 @@
             }
         }
 
-       
+
     </script>
 
 </head>
 
 <body>
-    
+
     <div class="container">
-            <h1>Faça o seu cadastro</h1>
+        <h1>Faça o seu cadastro</h1>
 
         <form name="form" method="POST" action="/cadastro">
-        <input type="number" name="id" id="id" th:value="${aluno.id}" style="display: none">
+            <input type="number" name="id" id="id" th:value="${aluno.id}" style="display: none">
             <div class="form-group row">
                 <label for="nome" class="col-sm-2 col-form-label">Nome</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nome" name="nome" th:value="${aluno.nome}" placeholder="Ex.: Jose maria"
-                        style=" border: 1px solid black;">
+                    <input type="text" class="form-control" id="nome" name="nome" th:value="${aluno.nome}"
+                        placeholder="Ex.: Jose maria" style=" border: 1px solid black;">
                 </div>
                 <span class="msg_erro msg_nome" style="display: none" name="span"> O Campo nome é Obrigatorio</span>
                 <span class="msg_erro msg_nome_invalido" style="display: none" name="span"> este Nome é invalido</span>
@@ -240,7 +256,8 @@
                 <label for="email" class="col-sm-2 col-form-label">E-mail</label>
                 <div class="col-sm-7">
                     <input type="email" class="form-control" id="email" name="email"
-                        placeholder="Ex:. josemaria@gmail.com" th:value="${aluno.email}" style=" border: 1px solid black;">
+                        placeholder="Ex:. josemaria@gmail.com" th:value="${aluno.email}"
+                        style=" border: 1px solid black;">
                 </div>
             </div>
             <span class="msg_erro msg_email" style="display: none" name="span"> O Campo E-mail é Obrigatorio</span>
@@ -249,8 +266,8 @@
             <div class="form-group row">
                 <label for="senha" class="col-sm-2 col-form-label">Senha</label>
                 <div class="col-sm-5">
-                    <input type="password" class="form-control" id="senha" name="senha" th:value="${aluno.senha}" placeholder="Ex.: *******"
-                        width="40" maxlength="30" style=" border: 1px solid black;">
+                    <input type="password" class="form-control" id="senha" name="senha" th:value="${aluno.senha}"
+                        placeholder="Ex.: *******" width="40" maxlength="30" style=" border: 1px solid black;">
                 </div>
             </div>
             <span class="msg_erro msg_senha" style="display: none"> O Campo Senha é Obrigatorio</span>
@@ -260,7 +277,7 @@
                 <label for="ConfSenha" class="col-sm-2 col-form-label">Confirmar Senha</label>
                 <div class="col-sm-5">
                     <input type="password" class="form-control" id="confSenha" name="confSenha"
-                    placeholder="Confirme a Senha" style=" border: 1px solid black;" th:value="${aluno.confSenha}">
+                        placeholder="Confirme a Senha" style=" border: 1px solid black;" th:value="${aluno.confSenha}">
                 </div>
             </div>
             <span class="msg_erro msg_confSenha" style="display: none" name="span"> O Campo Confirmar Senha é
@@ -270,7 +287,8 @@
             <span class="msg_erro msg_senhaDiferente" style="display: none" name="span"> As Senhas são diferentes</span>
             <fieldset class="form-group">
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0" style="color: white;">Modulo</legend>
+                    <legend class="col-form-label col-sm-2 pt-0"
+                        style="color: white; text-shadow: 2px 4px 2px rgb(0, 0, 0, 1);">Modulo</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
@@ -299,7 +317,8 @@
                 </div>
             </fieldset>
             <div class="form-group row">
-                <div class="col-sm-2" style="color: white;">Preferencias</div>
+                <div class="col-sm-2" style="color: white;  text-shadow: 2px 4px 2px rgb(0, 0, 0, 1);">Preferencias
+                </div>
                 <div class="col-sm-10" name="Preferencias">
                     <div class="form-check">
                         <input class="form-check-input" value="P.O.O" type="checkbox" name="preferencia" id="gridCheck1"
@@ -316,13 +335,14 @@
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" value="programção movel" type="checkbox" name="preferencia" id="gridCheck3"
+                        <input class="form-check-input" value="programção movel" type="checkbox" name="preferencia"
+                            id="gridCheck3"
                             th:selected="${aluno.preferencias != null ? #arrays.contains(aluno.preferencias, 'programção móvel') : false}">
                         <label class="form-check-label" for="gridCheck1">
                             programção móvel
                         </label>
                     </div>
-                    
+
                     <span class="msg_erro msg_areas" style="display: none" name="span"> O Campo Preferencias é
                         Obrigatorio, escolha pelo menos uma opção</span>
                 </div>
@@ -330,7 +350,8 @@
             </div>
             <button type="submit" class="btn btn-dark icon-next" style="margin-left: 350px; background-color: green"
                 value="validar" onclick="validarForm(form)" id="validar">VALIDAR</button>
-            <button type="reset" class="btn btn-dark icon-invalid" value="limpar" style="background-color:rgb(151, 7, 7)" id="limpar">LIMPAR</button>
+            <button type="reset" class="btn btn-dark icon-invalid" value="limpar"
+                style="background-color:rgb(151, 7, 7)" id="limpar">LIMPAR</button>
 
         </form>
     </div>
